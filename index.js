@@ -8,33 +8,41 @@ document.addEventListener('DOMContentLoaded', ()=>{
         console.log(search.value)
         if(search.value !== ''){
             clearList()
+            fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search.value}`)
+            .then(resp=>resp.json())
+            .then(json => {
+                for(let i=0; i<json.drinks.length;i++){
+                    // console.log(json.drinks[i].strDrink)
+                    pullRecipe(json.drinks[i])
+                }                
+            })
         }
     })
-    
+
     function clearList(){
         while(drinksList.firstChild){
             drinksList.removeChild(drinksList.firstChild)
         }
     }
-    // function addDefault(){
-    //     let secDef = document.createElement('section');
-    //     secDef.innerHTML = `<h2>Example Drink</h2>
-    //     <img />
-    //     <ul>
-    //         <li>Category? </li>
-    //         <li>Alcohol? </li>
-    //         <li>Container? </li>
-    //     </ul>
-    //     <ol>
-    //         <li>Ingredient 1 Measure</li>
-    //         <li>Ingredient 2 Measure</li>
-    //         <li>Ingredient 3 Measure</li>
-    //     </ol>
-    //     <p>
-    //         Mixing Instructions
-    //     </p>`
-    //     drinksList.appendChild(secDef)
-    // }
+    function pullRecipe(recipe){
+        let section = document.createElement('section');
+        // let header = document.createElement('h2');
+
+        section.innerHTML = `<h2> ${recipe.strDrink} </h2>
+        <img src='${recipe.strDrinkThumb}'/> <ul> <li>${recipe.strCategory}</li> <li>${recipe.strAlcoholic}</li> <li>${recipe.strGlass}</li> </ul> <ol> </ol> <p>${recipe.strInstructions}</p>`
+        
+        
+        console.log(section.h2)
+        // let img = document.createElement('img');
+        // let ul = document.createElement('ul');
+
+        console.log(recipe.strDrink)
+        // header.textContent = `${recipe.strDrink}`
+        // section.appendChild(header);
+        
+        drinksList.appendChild(section)
+    }
+
     console.log("the dom is now loaded")
 })
 
