@@ -23,37 +23,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     // should add this to css instead
     console.log(btns)
-    btns.forEach(btn=> btn.addEventListener('mouseover', e=>{
-        console.log(e.target.style) 
-        e.target.style.backgroundColor = 'cyan'
-    }))
+    // const backgroundColor = target.style.backgroundColor
+    const setColorCyan = e=>(e.target.style.backgroundColor = 'cyan');
+    const setColorRed = e=>(e.target.style.backgroundColor = 'red');
+    const setColorDefault = e => (e.target.style.backgroundColor = '');
 
-    // function deleteParent(e){
-    //  e.target.parentNode.remove()}
-    
-    // submitBtn.addEventListener('click', e=>{
-    //     e.preventDefault();
-        // console.log(e);
-        // console.log(search.value)
-        // if(search.value !== ''){
-        //     clearList()
-        //     fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search.value}`)
-        //     .then(resp=>resp.json())
-        //     .then(json => {
-        //         for(let i=0; i<json.drinks.length;i++){
-
-                    // console.log(json.drinks[i].strDrink)
-
-            //         pullRecipe(json.drinks[i])
-            //     }
-            // })
-        // }
-    // })
+    btns[0].addEventListener('mouseover', setColorCyan)
+    btns[0].addEventListener('mouseout', setColorDefault)
     // document.getElementsByClassName('btn').addEventListener('mouseover', e=>{
     // })
 
     // function searchForDrinks()
-
+    
     function clearList(){
         while(drinksList.firstChild){
             drinksList.removeChild(drinksList.firstChild)
@@ -62,8 +43,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
     function pullRecipe(recipe){
         let section = document.createElement('section');
 
-        section.innerHTML = `<h2> ${recipe.strDrink} </h2>
-        <img src='${recipe.strDrinkThumb}'/> <ol> <li>${recipe.strCategory}</li> <li>${recipe.strAlcoholic}</li> <li>${recipe.strGlass}</li> </ol> <ul> </ul> <p>${recipe.strInstructions}</p>`;
+        section.innerHTML = `<h2> ${recipe.strDrink} </h2> 
+        <img src='${recipe.strDrinkThumb}'/> <input type='button' class='btn remove' value='Remove'/> 
+        <ol> <li>${recipe.strCategory}</li> <li>${recipe.strAlcoholic}</li> <li>${recipe.strGlass}</li> </ol> <ul> </ul> <p>${recipe.strInstructions}</p>`;
         section.id = `${recipe.idDrink}`;
         section.className = 'search section';
         for(let i=1;i<15;i++){
@@ -72,13 +54,24 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 let amt = recipe[`strMeasure${i}`]!==null?recipe[`strMeasure${i}`]:'';  
                 ingred.textContent = `${amt} ${recipe[`strIngredient${i}`]}`;
                 let ingredList = section.querySelector('ul');
-                ingredList.appendChild(ingred);
+                ingredList.append(ingred);
             }
         }
-        console.log(recipe.strDrink)
-        drinksList.appendChild(section)
+        let removeBtn = section.querySelector('.remove');
+        removeBtn.addEventListener('click',deleteParent);
+        removeBtn.addEventListener('mouseover',setColorRed);
+        removeBtn.addEventListener('mouseout',setColorDefault);
+        console.log(recipe.strDrink);
+        drinksList.append(section)
     }
-
+    const deleteParent = (e) => e.target.parentNode.remove();
+    
+    
+    // find a better way to do this
+    // function multiEventListener(element, events,cb){
+    //     events.forEach(event => element.addEventListener(event, cb))
+    // }
+    
     // array of objects?
     // let drinksArray = [
     //     { name: 'Example Drink',
