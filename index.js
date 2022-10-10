@@ -12,7 +12,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
             fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchValue}`)
             .then(resp=>resp.json())
             .then(json => {
-                json.drinks.forEach(drink => pullRecipe(drink))
+                if(json.drinks===null){
+                    alert("Whoops, no results! Try another search.")
+                }
+                else json.drinks.forEach(drink => pullRecipe(drink))
 
                 // for(let i=0; i<json.drinks.length;i++){
                 //     pullRecipe(json.drinks[i]);
