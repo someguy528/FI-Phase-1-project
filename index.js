@@ -12,12 +12,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
             fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchValue}`)
             .then(resp=>resp.json())
             .then(json => {
-                for(let i=0; i<json.drinks.length;i++){
+                json.drinks.forEach(drink => pullRecipe(drink))
 
-                    // console.log(json.drinks[i].strDrink)
+                // for(let i=0; i<json.drinks.length;i++){
+                //     pullRecipe(json.drinks[i]);
+                // }
 
-                    pullRecipe(json.drinks[i])
-                }
+                searchForm.reset();
             })
         }
     })
