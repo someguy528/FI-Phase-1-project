@@ -15,17 +15,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 if(json.drinks===null){
                     alert("Whoops, no results! Try another search.")
                 }
-                else json.drinks.forEach(drink => pullRecipe(drink))
-
-                // for(let i=0; i<json.drinks.length;i++){
-                //     pullRecipe(json.drinks[i]);
-                // }
-
+                else json.drinks.forEach(pullRecipe);
                 searchForm.reset();
             })
         }
     })
     
+    // function deleteParent(e){
+    //  e.target.parentNode.remove()}
     
     // submitBtn.addEventListener('click', e=>{
     //     e.preventDefault();
@@ -59,7 +56,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
         let section = document.createElement('section');
 
         section.innerHTML = `<h2> ${recipe.strDrink} </h2>
-        <img src='${recipe.strDrinkThumb}'/> <ol> <li>${recipe.strCategory}</li> <li>${recipe.strAlcoholic}</li> <li>${recipe.strGlass}</li> </ol> <ul> </ul> <p>${recipe.strInstructions}</p>`
+        <img src='${recipe.strDrinkThumb}'/> <ol> <li>${recipe.strCategory}</li> <li>${recipe.strAlcoholic}</li> <li>${recipe.strGlass}</li> </ol> <ul> </ul> <p>${recipe.strInstructions}</p>`;
+        section.setAttribute('id', `${recipe.idDrink}`);
         for(let i=1;i<15;i++){
             if(recipe[`strIngredient${i}`] !==null){
                 let ingred = document.createElement('li');
@@ -72,6 +70,24 @@ document.addEventListener('DOMContentLoaded', ()=>{
         console.log(recipe.strDrink)
         drinksList.appendChild(section)
     }
+
+    // array of objects?
+    // let drinksArray = [
+    //     { name: 'Example Drink',
+    //     category: 'Category?',
+    //     alcohol: 'Alcohol?',
+    //     container: 'Container?',
+    //     ingredients: {
+    //         ingredient1: 'Measure',
+    //         ingredient2: 'Measure',
+    //         ingredient3: 'Measure',
+    //     },
+    //     instructions: 'Mixing Instructions'
+
+    //     }]
+
+    // function createDrink
+
     console.log("the dom is now loaded")
 })
 
