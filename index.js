@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
                     // console.log(json.drinks[i].strDrink)
                     pullRecipe(json.drinks[i])
                 }
+            // do i need a catch here?
+            // .catch( e=>{
+            //     alert("Something went wrong, try again in a bit!");
+            // })
             })
         }
     })
@@ -32,8 +36,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         for(let i=1;i<15;i++){
             if(recipe[`strIngredient${i}`] !==null){
                 let ingred = document.createElement('li');
-                let amt = recipe[`strMeasure${i}`]!==null?recipe[`strMeasure${i}`]:''
-                
+                let amt = recipe[`strMeasure${i}`]!==null?recipe[`strMeasure${i}`]:'';  
                 ingred.textContent = `${amt} ${recipe[`strIngredient${i}`]}`;
                 let ingredList = section.querySelector('ul');
                 ingredList.appendChild(ingred);
