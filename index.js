@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 for(let i=0; i<json.drinks.length;i++){
                     // console.log(json.drinks[i].strDrink)
                     pullRecipe(json.drinks[i])
-                }                
+                }
             })
         }
     })
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
     function pullRecipe(recipe){
         let section = document.createElement('section');
-        // let header = document.createElement('h2');
+
         section.innerHTML = `<h2> ${recipe.strDrink} </h2>
         <img src='${recipe.strDrinkThumb}'/> <ol> <li>${recipe.strCategory}</li> <li>${recipe.strAlcoholic}</li> <li>${recipe.strGlass}</li> </ol> <ul> </ul> <p>${recipe.strInstructions}</p>`
         for(let i=1;i<15;i++){
@@ -36,21 +36,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 
                 ingred.textContent = `${amt} ${recipe[`strIngredient${i}`]}`;
                 let ingredList = section.querySelector('ul');
-                console.log(ingred.textContent);
                 ingredList.appendChild(ingred);
             }
         }
-        console.log(section.h2)
-        // let img = document.createElement('img');
-        // let ul = document.createElement('ul');
-
         console.log(recipe.strDrink)
-        // header.textContent = `${recipe.strDrink}`
-        // section.appendChild(header);
-        
         drinksList.appendChild(section)
     }
-
     console.log("the dom is now loaded")
 })
 
