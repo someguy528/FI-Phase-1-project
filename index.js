@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', ()=>{
-    let drinksList = document.getElementById("drinks list")
-    let submitBtn = document.getElementById("submit")
-    let search = document.getElementById('search')
-    
+    let drinksList = document.getElementById("drinks list");
+    let submitBtn = document.getElementById("submit");
+    let search = document.getElementById('search');
+    let btns = Array.from(document.getElementsByClassName('btn'));
     let searchForm = document.getElementById('search form');
     searchForm.addEventListener('submit',e=>{
         e.preventDefault();
@@ -15,12 +15,19 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 if(json.drinks===null){
                     alert("Whoops, no results! Try another search.")
                 }
-                else json.drinks.forEach(pullRecipe);
+                else json.drinks.map(pullRecipe);
                 searchForm.reset();
             })
         }
     })
-    
+
+    // should add this to css instead
+    console.log(btns)
+    btns.forEach(btn=> btn.addEventListener('mouseover', e=>{
+        console.log(e.target.style) 
+        e.target.style.backgroundColor = 'cyan'
+    }))
+
     // function deleteParent(e){
     //  e.target.parentNode.remove()}
     
@@ -57,7 +64,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
         section.innerHTML = `<h2> ${recipe.strDrink} </h2>
         <img src='${recipe.strDrinkThumb}'/> <ol> <li>${recipe.strCategory}</li> <li>${recipe.strAlcoholic}</li> <li>${recipe.strGlass}</li> </ol> <ul> </ul> <p>${recipe.strInstructions}</p>`;
-        section.setAttribute('id', `${recipe.idDrink}`);
+        section.id = `${recipe.idDrink}`;
+        section.className = 'search section';
         for(let i=1;i<15;i++){
             if(recipe[`strIngredient${i}`] !==null){
                 let ingred = document.createElement('li');
