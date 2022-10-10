@@ -27,11 +27,19 @@ document.addEventListener('DOMContentLoaded', ()=>{
     function pullRecipe(recipe){
         let section = document.createElement('section');
         // let header = document.createElement('h2');
-
         section.innerHTML = `<h2> ${recipe.strDrink} </h2>
-        <img src='${recipe.strDrinkThumb}'/> <ul> <li>${recipe.strCategory}</li> <li>${recipe.strAlcoholic}</li> <li>${recipe.strGlass}</li> </ul> <ol> </ol> <p>${recipe.strInstructions}</p>`
-        
-        
+        <img src='${recipe.strDrinkThumb}'/> <ol> <li>${recipe.strCategory}</li> <li>${recipe.strAlcoholic}</li> <li>${recipe.strGlass}</li> </ol> <ul> </ul> <p>${recipe.strInstructions}</p>`
+        for(let i=1;i<15;i++){
+            if(recipe[`strIngredient${i}`] !==null){
+                let ingred = document.createElement('li');
+                let amt = recipe[`strMeasure${i}`]!==null?recipe[`strMeasure${i}`]:''
+                
+                ingred.textContent = `${amt} ${recipe[`strIngredient${i}`]}`;
+                let ingredList = section.querySelector('ul');
+                console.log(ingred.textContent);
+                ingredList.appendChild(ingred);
+            }
+        }
         console.log(section.h2)
         // let img = document.createElement('img');
         // let ul = document.createElement('ul');
