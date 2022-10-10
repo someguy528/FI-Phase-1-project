@@ -2,26 +2,49 @@ document.addEventListener('DOMContentLoaded', ()=>{
     let drinksList = document.getElementById("drinks list")
     let submitBtn = document.getElementById("submit")
     let search = document.getElementById('search')
-    submitBtn.addEventListener('click', e=>{
+    
+    let searchForm = document.getElementById('search form');
+    searchForm.addEventListener('submit',e=>{
         e.preventDefault();
-        console.log(e);
-        console.log(search.value)
-        if(search.value !== ''){
+        let searchValue = e.target.search.value;
+        if(searchValue !== ''){
             clearList()
-            fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search.value}`)
+            fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchValue}`)
             .then(resp=>resp.json())
             .then(json => {
                 for(let i=0; i<json.drinks.length;i++){
+
                     // console.log(json.drinks[i].strDrink)
+
                     pullRecipe(json.drinks[i])
                 }
-            // do i need a catch here?
-            // .catch( e=>{
-            //     alert("Something went wrong, try again in a bit!");
-            // })
             })
         }
     })
+    
+    
+    // submitBtn.addEventListener('click', e=>{
+    //     e.preventDefault();
+        // console.log(e);
+        // console.log(search.value)
+        // if(search.value !== ''){
+        //     clearList()
+        //     fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search.value}`)
+        //     .then(resp=>resp.json())
+        //     .then(json => {
+        //         for(let i=0; i<json.drinks.length;i++){
+
+                    // console.log(json.drinks[i].strDrink)
+
+            //         pullRecipe(json.drinks[i])
+            //     }
+            // })
+        // }
+    // })
+    // document.getElementsByClassName('btn').addEventListener('mouseover', e=>{
+    // })
+
+    // function searchForDrinks()
 
     function clearList(){
         while(drinksList.firstChild){
