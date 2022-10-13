@@ -12,5 +12,4 @@ This small javascript app project was made utilizing "TheCocktailDB" api from ht
 
 Currently the api method used is the basic "search cocktail by name" such as https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita
 
-Technique to remove child nodes: javascripttutorial.net/dom/manipulating/remove-all-child-nodes/ 
 

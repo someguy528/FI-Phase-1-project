@@ -4,23 +4,26 @@ document.addEventListener('DOMContentLoaded', ()=>{
     // let search = document.getElementById('search');
 
     let searchForm = document.getElementById('search form');
-    searchForm.addEventListener('submit',e=>{
+   
+
+    function searchFetch(e){
         e.preventDefault();
         let searchValue = e.target.search.value;
         if(searchValue !== ''){
-            drinksList.replaceChildren()
             fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchValue}`)
             .then(resp=>resp.json())
             .then(json => {
                 if(json.drinks===null){
                     alert("Whoops, no results! Try another search.")
                 }
-                else json.drinks.map(pullRecipe);
+                else drinksList.innerHTML = '';
+                json.drinks.map(pullRecipe);
                 searchForm.reset();
             })
             .catch(error => alert(`Whoops, something went wrong: ${error}`))
         }
-    })
+    
+    };
 
     // should add this to css instead
     
@@ -37,6 +40,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     // function searchForDrinks()
     
     function pullRecipe(recipe){
+        // initialize elements
         let section = document.createElement('section');
         let h2 = document.createElement('h2');
         let img = document.createElement('img');
@@ -47,40 +51,41 @@ document.addEventListener('DOMContentLoaded', ()=>{
         let liContainer = document.createElement('li');
         let ul = document.createElement('ul');
         let p = document.createElement('p');
-        
-        h2.textContent = `${recipe.strDrink}`;
-        img.src = `${recipe.strDrinkThumb}`;
+        // set content
+        h2.textContent = recipe.strDrink;
+        img.src = recipe.strDrinkThumb;
         inputRemove.type = `button`;
         inputRemove.className = `btn remove`;
         inputRemove.value = `remove`;
-        liCategory.textContent = `${recipe.strCategory}`;
-        liAlcohol.textContent = `${recipe.strAlcoholic}`;
-        liContainer.textContent = `${recipe.strGlass}`;
-        p.textContent = `${recipe.strInstructions}`;
+        liCategory.textContent = `Category: ${recipe.strCategory}`;
+        liAlcohol.textContent = `Alcohol: ${recipe.strAlcoholic}`;
+        liContainer.textContent = `Container: ${recipe.strGlass}`;
+        p.textContent = recipe.strInstructions;
         ol.append(liCategory,liAlcohol,liContainer);
         section.append(h2,img,inputRemove,ol,ul,p);
-
 
         // section.innerHTML = `<h2> ${recipe.strDrink} </h2> 
         // <img src='${recipe.strDrinkThumb}'/> <input type='button' class='btn remove' value='Remove'/> 
         // <ol> <li>${recipe.strCategory}</li> <li>${recipe.strAlcoholic}</li> <li>${recipe.strGlass}</li> </ol> <ul> </ul> <p>${recipe.strInstructions}</p>`;
+        
         section.id = `${recipe.idDrink}`;
         section.className = 'search section';
         for(let i=1;i<15;i++){
             if(recipe[`strIngredient${i}`] !==null){
                 let ingred = document.createElement('li');
-                let amt = recipe[`strMeasure${i}`]!==null?recipe[`strMeasure${i}`]:'';  
+                let amt = recipe[`strMeasure${i}`] !== null 
+                ? recipe[`strMeasure${i}`] : '';  
                 ingred.textContent = `${amt} ${recipe[`strIngredient${i}`]}`;
                 let ingredList = section.querySelector('ul');
                 ingredList.append(ingred);
-            }
-        }
+            };
+        };
         let removeBtn = section.querySelector('.remove');
         removeBtn.addEventListener('click',deleteParent);
         removeBtn.addEventListener('mouseover',setColorRed);
         removeBtn.addEventListener('mouseout',setColorDefault);
         console.log(recipe.strDrink);
-        drinksList.append(section)
+        drinksList.append(section);
     }
 
     // function addDeleteBtnEvents(){
@@ -110,6 +115,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     //     }]
 
     // function createDrink
+    searchForm.addEventListener('submit', searchFetch);
 
     console.log("the dom is now loaded")
 })
