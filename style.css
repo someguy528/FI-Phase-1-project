@@ -1,4 +1,13 @@
+body{
+    transition: all 2s linear 0s;
+}
+.darkmode{
+    background-color: rgba(0,0,0,0.85);
+    color:antiquewhite;
+}
+
 section {
+    color:black;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,6 +17,16 @@ section {
     border: 5px solid cyan;
     padding: 2% 0% 5%;
 }
+
+
+
+/* body{
+    background-color: rgba(0,0,0,0.85);
+}
+
+body h3, body h2[id='drinks header']{
+    color:antiquewhite;
+} */
 
 img.drinkImg {
     max-width: 50%;

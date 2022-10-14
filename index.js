@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', ()=>{
     let drinksList = document.getElementById("drinks list");
     let submitBtn = document.getElementById("submit");
-    // let search = document.getElementById('search');
+    let darkBtn = document.getElementById('dark');
 
     let searchForm = document.getElementById('search form');
    
@@ -116,7 +116,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
     //     }]
 
     // function createDrink
+
+    function toggleDarkMode(){
+        document.body.classList.toggle('darkmode')
+    };
+
     searchForm.addEventListener('submit', searchFetch);
+    darkBtn.addEventListener('click',toggleDarkMode);
+
 
     console.log("the dom is now loaded")
 })
