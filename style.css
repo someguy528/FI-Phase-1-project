@@ -1,0 +1,50 @@
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(176, 89, 207);
+    opacity: 0.9;
+    margin: 20px;
+    border: 5px solid cyan;
+    padding: 2% 0% 5%;
+}
+
+img.drinkImg {
+    max-width: 50%;
+    width: 300px;
+    height: auto;
+    padding: 1em;
+}
+
+section h2{
+    padding: 0.5em 4em 0.5em;
+    background-color: rgb(176, 89, 207);
+    position:sticky;
+    top:10px;
+    margin:0px;
+}
+
+section p, section ol, section ul{
+    font-size: 1.2em;
+}
+section p{
+    text-align: center;
+}
+
+
+@media (max-width: 700px) {
+    img.drinkImg {
+        max-width: 40%;
+        width: 150px;
+        height: auto;
+    }
+}
+
+@media (max-width: 400px) {
+    img.drinkImg {
+        max-width: 40%;
+        width: 125px;
+        height: auto;
+    }
+}
+

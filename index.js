@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         // set content
         h2.textContent = recipe.strDrink;
         img.src = recipe.strDrinkThumb;
+        img.className = 'drinkImg';
         inputRemove.type = `button`;
         inputRemove.className = `btn remove`;
         inputRemove.value = `remove`;
