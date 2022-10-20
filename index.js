@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     };
 
     function pullRecipe(recipe){
-        // initialize elements
         let section = document.createElement('section');
         let h2 = document.createElement('h2');
         let img = document.createElement('img');
@@ -33,7 +32,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
         let liContainer = document.createElement('li');
         let ul = document.createElement('ul');
         let p = document.createElement('p');
-        // set content
         h2.textContent = recipe.strDrink;
         img.src = recipe.strDrinkThumb;
         img.className = 'drinkImg';
@@ -50,8 +48,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         for(let i=1;i<15;i++){
             if(recipe[`strIngredient${i}`] !==null){
                 let ingred = document.createElement('li');
-                let amt = recipe[`strMeasure${i}`] !== null 
-                ? recipe[`strMeasure${i}`] : '';  
+                let amt = recipe[`strMeasure${i}`] !== null ? recipe[`strMeasure${i}`] : '';  
                 ingred.textContent = `${amt} ${recipe[`strIngredient${i}`]}`;
                 let ingredList = section.querySelector('ul');
                 ingredList.append(ingred);
@@ -59,31 +56,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
         };
         let removeBtn = section.querySelector('.btnremove');
         removeBtn.addEventListener('click',deleteParent);
-        console.log(recipe.strDrink);
         drinksList.append(section);
     };
-
-    // function addDeleteBtnEvents(){
-    // }
-
     function deleteParent(e){
         e.target.parentNode.remove();
     };
-    // array of objects?
-    // let drinksArray = [
-    //     { name: 'Example Drink',
-    //     category: 'Category?',
-    //     alcohol: 'Alcohol?',
-    //     container: 'Container?',
-    //     ingredients: {
-    //         ingredient1: 'Measure',
-    //         ingredient2: 'Measure',
-    //         ingredient3: 'Measure',
-    //     },
-    //     instructions: 'Mixing Instructions'
-    //     }]
-
-    // function createDrink
 
     function toggleDarkMode(){
         document.body.classList.toggle('darkmode')
