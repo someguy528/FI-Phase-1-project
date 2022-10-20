@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', ()=>{
-    let drinksList = document.getElementById("drinks list");
+    let drinksList = document.getElementById("drinksList");
     let darkBtn = document.getElementById('dark');
-    let searchForm = document.getElementById('search form');
+    let searchForm = document.getElementById('searchForm');
+    let searchIng = document.getElementById('searchIng');
 
     function searchFetch(e){
         e.preventDefault();
@@ -15,12 +16,30 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 }
                 else {drinksList.innerHTML = '';
                 json.drinks.map(pullRecipe);}
-                searchForm.reset();
             })
-            .catch(error => alert(`Whoops, something went wrong: ${error}`))
+            .catch(error => alert(`Whoops, something went wrong: ${error}`));
+            searchForm.reset()
         }    
     };
 
+    function searchIngredientFetch(e){
+        e.preventDefault();
+        let searchValue = e.target.IngSearch.value;
+        if(searchValue !== ''){
+            fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchValue}`)
+            .then(resp=>resp.json())
+            .then(json => {
+                if(!json){
+                    alert("Whoops, no results! Try another search.")
+                }
+                else {drinksList.innerHTML = '';
+                json.drinks.map(pullDrinkFromIng);}
+            })
+            .catch(error => alert(`Whoops, something went wrong: ${error}`));
+            searchIng.reset();
+        }    
+    };
+    
     function pullRecipe(recipe){
         let section = document.createElement('section');
         let h2 = document.createElement('h2');
@@ -58,6 +77,25 @@ document.addEventListener('DOMContentLoaded', ()=>{
         removeBtn.addEventListener('click',deleteParent);
         drinksList.append(section);
     };
+
+    function pullDrinkFromIng(recipe){
+        let section = document.createElement('section');
+        let h2 = document.createElement('h2');
+        let img = document.createElement('img');
+        let inputRemove = document.createElement('input');
+        h2.textContent = recipe.strDrink;
+        img.src = recipe.strDrinkThumb;
+        img.className = 'drinkImg';
+        inputRemove.type = `button`;
+        inputRemove.className = `btnremove`;
+        inputRemove.value = `remove`;
+        section.id = `${recipe.idDrink}`;
+        section.append(h2,img,inputRemove);
+        let removeBtn = section.querySelector('.btnremove');
+        removeBtn.addEventListener('click',deleteParent);
+        drinksList.append(section);
+    };
+
     function deleteParent(e){
         e.target.parentNode.remove();
     };
@@ -70,6 +108,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
 
     searchForm.addEventListener('submit', searchFetch);
+    searchIng.addEventListener('submit', searchIngredientFetch);
     darkBtn.addEventListener('click',toggleDarkMode);
     document.addEventListener('transitionstart', () => {
         darkBtn.textContent = "Switching Dark Mode...";
